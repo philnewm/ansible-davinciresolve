@@ -1,4 +1,4 @@
-.vscode/
-.git/
+.vscode
+.git
 molecule/default/boot_analysis/
-.ansible/
+.ansible

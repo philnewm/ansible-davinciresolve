@@ -1,5 +1,25 @@
 ---
 
-ansible_role_template: "Default role name still in use."
+dresolve_dependencies:
+  RedHat:
+    - apr
+    - apr-util
+    - libglvnd-opengl
+    - mesa-libGLU
+    - xcb-util-cursor
+    - xcb-util-image
+    - xcb-util-keysyms
+    - xcb-util-renderutil
+    - xcb-util-wm
+    - ocl-icd
+  Debian:
+    - libapr1
+    - libaprutil1
+    - libglu1-mesa
+    - libxcb-composite0
+    - libxcb-cursor0
+    - libxcb-damage0
+    - libxcb-xinerama0
+    - libxcb-xinput0
 
 ...

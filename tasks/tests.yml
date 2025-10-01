@@ -1,3 +1,35 @@
 ---
 
+- name: Gather package facts
+  ansible.builtin.package_facts:
+
+- name: Test installed dependencies
+  loop: "{{ dresolve_dependencies[ansible_os_family] }}"
+  ansible.builtin.assert:
+    that:
+      - item in ansible_facts.packages
+    fail_msg: "Failed to find package {{ item }}"
+    quiet: true
+
+- name: Test start davinci resolve
+  ansible.builtin.command:
+    cmd: "{{ dresolve_install_location }}/bin/resolve -v"
+  changed_when: false
+  register: dresolve_start_result
+
+- name: Test davinci resolve version output
+  ansible.builtin.assert:
+    that:
+      - dresolve_version in dresolve_start_result.stdout_lines[-1]
+    fail_msg: "Failed to find version {{ dresolve_version }}, got {{ dresolve_start_result.stdout_lines[-1] }} instead"
+    quiet: true
+
+- name: Test davinci resolve version output
+  when: dresolve_studio
+  ansible.builtin.assert:
+    that:
+      - "'Studio' in dresolve_start_result.stdout_lines[-1]"
+    fail_msg: "Failed to find version {{ dresolve_version }}, got {{ dresolve_start_result.stdout_lines[-1] }} instead"
+    quiet: true
+
 ...

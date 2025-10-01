@@ -2,4 +2,18 @@
 
 state: present
 
+dresolve_license: studio
+
+dresolve_package_dir: "/tmp/resolve"
+dresolve_studio: true
+
+dresolve_version: "20.2.1"
+dresolve_install_location: "/opt/resolve"
+
+dresolve_installer: "DaVinci_Resolve_{{ 'Studio' if dresolve_studio else '' }}_{{ dresolve_version }}_Linux.run"
+
+dresolve_openfx_renderer: true
+
+dresolve_install_command: "./{{ dresolve_installer }} --install --noconfirm"
+
 ...

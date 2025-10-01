@@ -7,8 +7,70 @@
     name: python-apt-common
     state: present
 
-# INFO This task may be obsolete for your use-case
 - name: Gather package facts
   ansible.builtin.package_facts:
+
+- name: Get resolve executable
+  ansible.builtin.stat:
+    path: "{{ dresolve_install_location }}/bin/resolve"
+  register: dresolve_executable
+
+- name: Prepare installer
+  when: not dresolve_executable.stat.exists
+  block:
+    - name: Ensure temporary install dir exists on remote host
+      become: true
+      ansible.builtin.file:
+        path: "{{ dresolve_package_dir }}"
+        state: "directory"
+        mode: "0755"
+        owner: "root"
+        group: "root"
+
+    - name: Copy installer package to remote host
+      become: true
+      ansible.builtin.copy:
+        src: "{{ dresolve_package_dir }}/{{ dresolve_installer }}"
+        dest: "{{ dresolve_package_dir }}"
+        mode: "0755"
+        owner: "root"
+        group: "root"
+
+- name: Install resolve dependencies
+  become: true
+  loop: "{{ dresolve_dependencies[ansible_os_family] }}"
+  when: item not in ansible_facts.packages
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+
+- name: Run installer
+  when: not dresolve_executable.stat.exists
+  block:
+    - name: Set install command
+      ansible.builtin.set_fact:
+        dresolve_install_command: >-
+          ./{{ dresolve_installer }} --install --noconfirm
+          {% if dresolve_openfx_renderer | bool %} --withrenderer{% endif %}
+
+    - name: Display davinci resolve install flags
+      ansible.builtin.debug:
+        msg: |
+          "{{ dresolve_install_command }} --directory {{ dresolve_install_location }}"
+
+    - name: Run installer
+      become: true
+      when: not dresolve_executable.stat.exists
+      ansible.builtin.command:
+        cmd: "{{ dresolve_install_command }} --directory {{ dresolve_install_location }}"
+        chdir: "{{ dresolve_package_dir }}"
+        creates: "{{ dresolve_install_location }}/bin/resolve"
+
+- name: Remove installer package
+  become: true
+  ansible.builtin.file:
+    path: "{{ dresolve_package_dir }}"
+    state: absent
 
 ...
