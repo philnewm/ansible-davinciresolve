@@ -3,8 +3,8 @@
 galaxy_info:
   role_name: davinciresolve
   author: philnewm
-  description: ansible-role-template description
-  license: some_license
+  description: Automatically install davinci resolve using a local file
+  license: MIT
   min_ansible_version: "2.1"
   platforms:
     - name: EL

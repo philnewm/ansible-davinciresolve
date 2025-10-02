@@ -10,30 +10,23 @@ This role includes a vagrant based molecule testing setup as a submodule at `mol
 
 ```code
 📦 ansible-davinciresolve
- ┣ 📂 defaults
- ┃ ┗ 📜 main.yml
- ┣ 📂 files
- ┃ ┗ 📜 file_placeholder.yml
- ┣ 📂 handlers
- ┃ ┗ 📜 main.yml
- ┣ 📂 meta
- ┃ ┗ 📜 main.yml
+ ┣ 📂defaults
+ ┃ ┗ 📜main.yml
+ ┣ 📂meta
+ ┃ ┗ 📜main.yml
  ┣ 📂 molecule
  ┃ ┗ 📂 default
  ┃   ┗ 📜, 📜, 📜, scenario_files
- ┣ 📂 tasks
- ┃ ┣ 📜 main.yml
- ┃ ┣ 📜 present.yml
- ┃ ┣ 📜 dependencies.yml
- ┃ ┣ 📜 absent.yml
- ┃ ┗ 📜 init.yml
- ┣ 📂 templates
- ┃ ┗ ⛩️ template.j2
- ┣ 📂 vars
- ┃ ┗ 📜 main.yml
- ┗ 🗒️ README.md
- ┗ 📓 requirements.txt
- ┗ 📓 requirements.yml
+ ┣ 📂tasks
+ ┃ ┣ 📜absent.yml
+ ┃ ┣ 📜main.yml
+ ┃ ┣ 📜present.yml
+ ┃ ┗ 📜tests.yml
+ ┣ 📂vars
+ ┃ ┗ 📜main.yml
+ ┣ 📜.gitignore
+ ┣ 📜.gitmodules
+ ┗ 📜README.md
 
 ```
 
