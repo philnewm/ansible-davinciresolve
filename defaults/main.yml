@@ -10,7 +10,9 @@ dresolve_studio: true
 dresolve_version: "20.2.1"
 dresolve_install_location: "/opt/resolve"
 
-dresolve_installer: "DaVinci_Resolve_{{ 'Studio' if dresolve_studio else '' }}_{{ dresolve_version }}_Linux.run"
+dresolve_installer: "DaVinci_Resolve_{{ 'Studio_' if dresolve_studio else '' }}{{ dresolve_version }}_Linux.run"
+
+installer_path: "{{ dresolve_package_dir }}/{{ dresolve_installer }}"
 
 dresolve_openfx_renderer: true
 

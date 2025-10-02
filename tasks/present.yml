@@ -30,7 +30,7 @@
     - name: Copy installer package to remote host
       become: true
       ansible.builtin.copy:
-        src: "{{ dresolve_package_dir }}/{{ dresolve_installer }}"
+        src: "{{ installer_path }}"
         dest: "{{ dresolve_package_dir }}"
         mode: "0755"
         owner: "root"
