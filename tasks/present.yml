@@ -67,6 +67,13 @@
         chdir: "{{ dresolve_package_dir }}"
         creates: "{{ dresolve_install_location }}/bin/resolve"
 
+- name: Create symlink
+  become: true
+  ansible.builtin.file:
+    src: "{{ dresolve_executable }}"
+    dest: "{{ dresolve_symlink }}"
+    state: link
+
 - name: Remove installer package
   become: true
   ansible.builtin.file:

@@ -9,6 +9,8 @@ dresolve_studio: true
 
 dresolve_version: "20.2.1"
 dresolve_install_location: "/opt/resolve"
+dresolve_executable: "{{ dresolve_install_location }}/bin/resolve"
+dresolve_symlink: "/usr/local/bin/resolve"
 
 dresolve_installer: "DaVinci_Resolve_{{ 'Studio_' if dresolve_studio else '' }}{{ dresolve_version }}_Linux.run"
 
