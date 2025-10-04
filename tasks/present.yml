@@ -70,7 +70,7 @@
 - name: Create symlink
   become: true
   ansible.builtin.file:
-    src: "{{ dresolve_executable }}"
+    src: "{{ dresolve_executable_path }}"
     dest: "{{ dresolve_symlink }}"
     state: link
 
