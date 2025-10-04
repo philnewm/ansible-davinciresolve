@@ -12,14 +12,57 @@ dresolve_dependencies:
     - xcb-util-renderutil
     - xcb-util-wm
     - ocl-icd
+    - alsa-lib
+    - fontconfig
+    - freetype
+    - libglvnd-egl
+    - libICE
+    - librsvg2
+    - libSM
+    - libXcursor
+    - libXi
+    - libXinerama
+    - libxkbcommon
+    - libxkbcommon-x11
+    - libXrandr
+    - libXrender
+    - libXtst
+    - mtdev
+    - pulseaudio-libs
+  # Warning probably incomplete
   Debian:
+    - fontconfig
+    - libasound2
     - libapr1
     - libaprutil1
     - libglu1-mesa
+    - libgomp1
+    - libfuse2
+    - libice6
+    - libsm6
     - libxcb-composite0
     - libxcb-cursor0
     - libxcb-damage0
+    - libxcb-glx0
+    - libxcb-icccm4
+    - libxcb-keysyms1
+    - libxcb-randr0
+    - libxcb-shape0
+    - libxcb-sync1
     - libxcb-xinerama0
     - libxcb-xinput0
+    - libxcb-xfixes0
+    - libxcb-xkb1
+    - libxcursor1
+    - libxfixes3
+    - libxi6
+    - libxinerama1
+    - libxkbcommon-x11-0
+    - libxkbcommon0
+    - libxrandr2
+    - libxrender1
+    - libxtst6
+    - libxxf86vm1
+    - ocl-icd-libopencl1
 
 ...
