@@ -3,9 +3,16 @@
 - name: Uninstall davinci resolve
   become: true
   ansible.builtin.command:
-    cmd: "{{ dresolve_install_location }}/installer --uninstall --noconfirm"
+    cmd: "installer --uninstall --noconfirm"
+    chdir: "{{ dresolve_install_location }}"
   register: uninstall_result
   changed_when: uninstall_result.rc == 0
+
+- name: Remove resolve install dir
+  become: true
+  ansible.builtin.file:
+    path: "{{ dresolve_install_location }}"
+    state: "absent"
 
 - name: Remove unused dependencies
   become: true

@@ -1,0 +1,21 @@
+---
+
+- name: Set install command
+  ansible.builtin.set_fact:
+    dresolve_install_command: >-
+      ./{{ dresolve_installer }} --install --noconfirm
+      {% if dresolve_openfx_renderer | bool %} --withrenderer{% endif %}
+
+- name: Display davinci resolve install flags
+  ansible.builtin.debug:
+    msg: |
+      "{{ dresolve_install_command }} --directory {{ dresolve_install_location }}"
+
+- name: Run installer
+  become: true
+  ansible.builtin.command:
+    cmd: "{{ dresolve_install_command }} --directory {{ dresolve_install_location }}"
+    chdir: "{{ dresolve_package_dir }}"
+    creates: "{{ dresolve_install_location }}/bin/resolve"
+
+...

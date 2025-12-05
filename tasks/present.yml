@@ -10,35 +10,26 @@
 - name: Gather package facts
   ansible.builtin.package_facts:
 
-- name: Get resolve executable
-  ansible.builtin.stat:
-    path: "{{ dresolve_install_location }}/bin/resolve"
-  register: dresolve_executable
+- name: Get davinci resolve version
+  ansible.builtin.command:
+    cmd: "{{ dresolve_executable_path }} -v"
+  register: present_dresolve_version
+  failed_when: false
+  changed_when: false
 
-- name: Prepare installer
-  when: not dresolve_executable.stat.exists
-  block:
-    - name: Ensure temporary install dir exists on remote host
-      become: true
-      ansible.builtin.file:
-        path: "{{ dresolve_package_dir }}"
-        state: "directory"
-        mode: "0755"
-        owner: "root"
-        group: "root"
+- name: Set davinci resolve version
+  when: present_dresolve_version.rc == 0
+  ansible.builtin.set_fact:
+    dresolve_version_found: "{{ present_dresolve_version.stdout_lines[-1].split(' ')[-1] }}"
 
-    - name: Copy installer package to remote host
-      become: true
-      ansible.builtin.copy:
-        src: "{{ dresolve_installer }}"
-        dest: "{{ dresolve_package_dir }}"
-        mode: "0755"
-        owner: "root"
-        group: "root"
+- name: Include installer
+  when: not dresolve_version_found is defined or dresolve_version not in dresolve_version_found
+  ansible.builtin.include_tasks:
+    file: get_installer.yml
 
 - name: Install resolve dependencies
   become: true
-  loop: "{{ dresolve_dependencies[ansible_os_family] }}"
+  loop: "{{ dresolve_dependencies[ansible_distribution | lower] | flatten(1) }}"
   when: item not in ansible_facts.packages
   ansible.builtin.package:
     name: "{{ item }}"
@@ -46,26 +37,9 @@
     update_cache: true
 
 - name: Run installer
-  when: not dresolve_executable.stat.exists
-  block:
-    - name: Set install command
-      ansible.builtin.set_fact:
-        dresolve_install_command: >-
-          ./{{ dresolve_installer }} --install --noconfirm
-          {% if dresolve_openfx_renderer | bool %} --withrenderer{% endif %}
-
-    - name: Display davinci resolve install flags
-      ansible.builtin.debug:
-        msg: |
-          "{{ dresolve_install_command }} --directory {{ dresolve_install_location }}"
-
-    - name: Run installer
-      become: true
-      when: not dresolve_executable.stat.exists
-      ansible.builtin.command:
-        cmd: "{{ dresolve_install_command }} --directory {{ dresolve_install_location }}"
-        chdir: "{{ dresolve_package_dir }}"
-        creates: "{{ dresolve_install_location }}/bin/resolve"
+  when: not dresolve_version_found is defined or dresolve_version not in dresolve_version_found
+  ansible.builtin.include_tasks:
+    file: run_installer.yml
 
 - name: Create symlink
   become: true

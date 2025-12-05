@@ -1,7 +1,7 @@
 ---
 
 dresolve_dependencies:
-  RedHat:
+  redhat: &redhat_dependencies
     - apr
     - apr-util
     - libglvnd-opengl
@@ -29,8 +29,14 @@ dresolve_dependencies:
     - libXtst
     - mtdev
     - pulseaudio-libs
+  centos:
+    - *redhat_dependencies
+  almalinux:
+    - *redhat_dependencies
+  rocky:
+    - *redhat_dependencies
   # Warning probably incomplete
-  Debian:
+  debian: &debian_dependencies
     - fontconfig
     - libasound2
     - libapr1
@@ -64,5 +70,7 @@ dresolve_dependencies:
     - libxtst6
     - libxxf86vm1
     - ocl-icd-libopencl1
+  ubuntu:
+    - *debian_dependencies
 
 ...
