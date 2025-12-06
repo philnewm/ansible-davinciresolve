@@ -23,7 +23,7 @@
     dresolve_version_found: "{{ present_dresolve_version.stdout_lines[-1].split(' ')[-1] }}"
 
 - name: Include installer
-  when: not dresolve_version_found is defined or dresolve_version not in dresolve_version_found
+  when: dresolve_version not in dresolve_version_found | default(true)
   ansible.builtin.include_tasks:
     file: get_installer.yml
 
@@ -37,7 +37,7 @@
     update_cache: true
 
 - name: Run installer
-  when: not dresolve_version_found is defined or dresolve_version not in dresolve_version_found
+  when: dresolve_version not in dresolve_version_found | default(true)
   ansible.builtin.include_tasks:
     file: run_installer.yml
 
