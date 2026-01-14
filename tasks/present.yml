@@ -1,12 +1,5 @@
 ---
 
-- name: Install debian specific package_facts dependency
-  become: true
-  when: ansible_distribution == "Debian"
-  ansible.builtin.package:
-    name: python-apt-common
-    state: present
-
 - name: Gather package facts
   ansible.builtin.package_facts:
 
@@ -29,7 +22,7 @@
 
 - name: Install resolve dependencies
   become: true
-  loop: "{{ dresolve_dependencies[ansible_distribution | lower] | flatten(1) }}"
+  loop: "{{ dresolve_dependencies[ansible_facts.distribution | lower] | flatten(1) }}"
   when: item not in ansible_facts.packages
   ansible.builtin.package:
     name: "{{ item }}"
@@ -47,6 +40,39 @@
     src: "{{ dresolve_executable_path }}"
     dest: "{{ dresolve_symlink }}"
     state: link
+
+- name: Fix library mismatch
+  when: ansible_facts.distribution | lower == "fedora" or ansible_facts.os_family | lower == "debian"
+  block:
+    - name: Create backup dir
+      become: true
+      ansible.builtin.file:
+        path: "{{ dresolve_install_location }}/libs-backup"
+        state: directory
+        mode: "0755"
+
+    - name: Find conflicting glib libraries
+      ansible.builtin.find:
+        paths: "{{ dresolve_install_location }}/libs"
+        patterns:
+          - "libglib*"
+          - "libgio*"
+          - "libgmodule*"
+        file_type: file
+      register: resolve_libs_to_move
+
+    - name: Move conflicting libraries to backup
+      become: true
+      loop: "{{ resolve_libs_to_move.files }}"
+      loop_control:
+        label: "{{ item.path | basename }}"
+      when: resolve_libs_to_move.matched > 0
+      ansible.builtin.command:
+        cmd: >
+          mv {{ item.path }}
+          {{ dresolve_install_location }}/libs-backup/
+      register: move_result
+      changed_when: move_result.rc == 0
 
 - name: Remove installer package
   become: true
