@@ -2,12 +2,12 @@
 
 The role gets tested for these distributions:
 
-    AlmaLinux9
-    Rocky9
-    CentOSStream9
-    Fedora43
-    Ubuntu2404
-    Debian13
+- AlmaLinux9
+- Rocky9
+- CentOSStream9
+- Fedora43
+- Ubuntu2404
+- Debian13
 
 CI in GitHub hosted runners doesn't work here because blackmagic doesn't allow scripted/automated downloads from their website.
 
