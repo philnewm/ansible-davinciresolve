@@ -1,6 +1,15 @@
 # Davinciresolve-Role
 
-[![Alma9-CI](https://github.com/philnewm/ansible-davinciresolve/actions/workflows/alma9-ci-caller.yml/badge.svg)](https://github.com/philnewm/ansible-davinciresolve/actions/workflows/alma9-ci-caller.yml)  [![Rocky9-CI](https://github.com/philnewm/ansible-davinciresolve/actions/workflows/rocky9-ci-caller.yml/badge.svg)](https://github.com/philnewm/ansible-davinciresolve/actions/workflows/rocky9-ci-caller.yml)  [![CentOSStream9-CI](https://github.com/philnewm/ansible-davinciresolve/actions/workflows/centosstream9-ci-caller.yml/badge.svg)](https://github.com/philnewm/ansible-davinciresolve/actions/workflows/centosstream9-ci-caller.yml)  [![Debian12-CI](https://github.com/philnewm/ansible-davinciresolve/actions/workflows/debian12-ci-caller.yml/badge.svg)](https://github.com/philnewm/ansible-davinciresolve/actions/workflows/debian12-ci-caller.yml)  [![Ubuntu2204-CI](https://github.com/philnewm/ansible-davinciresolve/actions/workflows/ubuntu2204-ci-caller.yml/badge.svg)](https://github.com/philnewm/ansible-davinciresolve/actions/workflows/ubuntu2204-ci-caller.yml)
+The role gets tested for these distributions:
+
+    AlmaLinux9
+    Rocky9
+    CentOSStream9
+    Fedora43
+    Ubuntu2404
+    Debian13
+
+CI in GitHub hosted runners doesn't work here because blackmagic doesn't allow scripted/automated downloads from their website.
 
 Role description
 
