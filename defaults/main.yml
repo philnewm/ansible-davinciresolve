@@ -2,10 +2,10 @@
 
 state: present
 
-dresolve_version: "20.3"
-dresolve_studio: true
+dresolve_version: "20.3.1"
+dresolve_studio: false
 
-# also works for local files file:///tmp/a_file.txt
+# Note also works for local files file:///tmp/a_file.txt
 # https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/get_url_module.html#examples
 dresolve_installer_src: "/path/to/installer"
 dresolve_installer: "DaVinci_Resolve_{{ 'Studio_' if dresolve_studio else '' }}{{ dresolve_version }}_Linux.run"
@@ -15,7 +15,6 @@ installer_path: "{{ dresolve_package_dir }}/{{ dresolve_installer }}"
 dresolve_install_location: "/opt/resolve/{{ dresolve_version }}"
 
 dresolve_openfx_renderer: true
-dresolve_install_command: "./{{ dresolve_installer }} --install --noconfirm"
 dresolve_executable_path: "{{ dresolve_install_location }}/bin/resolve"
 dresolve_symlink: "/usr/local/bin/resolve"
 

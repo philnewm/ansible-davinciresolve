@@ -4,7 +4,7 @@
   ansible.builtin.package_facts:
 
 - name: Test installed dependencies
-  loop: "{{ dresolve_dependencies[ansible_os_family | lower] | flatten(1) }}"
+  loop: "{{ dresolve_dependencies[ansible_facts.os_family | lower] | flatten(1) }}"
   ansible.builtin.assert:
     that:
       - item in ansible_facts.packages
