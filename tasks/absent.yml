@@ -1,9 +1,14 @@
 ---
 
+- name: Display dir
+  ansible.builtin.debug:
+    var: dresolve_install_location
+
+# TODO seems to pop up UI when a DISPLAY is set
 - name: Uninstall davinci resolve
   become: true
   ansible.builtin.command:
-    cmd: "installer --uninstall --noconfirm"
+    cmd: "./installer --uninstall --noconfirm --allowroot"
     chdir: "{{ dresolve_install_location }}"
   register: uninstall_result
   changed_when: uninstall_result.rc == 0
@@ -13,10 +18,5 @@
   ansible.builtin.file:
     path: "{{ dresolve_install_location }}"
     state: "absent"
-
-- name: Remove unused dependencies
-  become: true
-  ansible.builtin.package:
-    autoremove: true
 
 ...
