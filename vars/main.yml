@@ -2,20 +2,15 @@
 
 dresolve_dependencies:
   redhat: &redhat_dependencies
+    - alsa-lib
     - apr
     - apr-util
-    - libglvnd-opengl
-    - mesa-libGLU
-    - xcb-util-cursor
-    - xcb-util-image
-    - xcb-util-keysyms
-    - xcb-util-renderutil
-    - xcb-util-wm
-    - ocl-icd
-    - alsa-lib
     - fontconfig
     - freetype
+    - fuse-libs
     - libglvnd-egl
+    - libglvnd-glx
+    - libglvnd-opengl
     - libICE
     - librsvg2
     - libSM
@@ -26,40 +21,65 @@ dresolve_dependencies:
     - libxkbcommon-x11
     - libXrandr
     - libXrender
+    - libXt
     - libXtst
+    - libXxf86vm
+    - mesa-libGLU
     - mtdev
+    - ocl-icd
     - pulseaudio-libs
+    - xcb-util-cursor
+    - xcb-util-image
+    - xcb-util-keysyms
+    - xcb-util-renderutil
+    - xcb-util-wm
   centos:
     - *redhat_dependencies
   almalinux:
     - *redhat_dependencies
   rocky:
     - *redhat_dependencies
-  # Warning probably incomplete
+  fedora:
+    - *redhat_dependencies
+    - libxcrypt-compat
   debian: &debian_dependencies
     - fontconfig
-    - libasound2
-    - libapr1
-    - libaprutil1
+    - libapr1t64
+    - libaprutil1t64
+    - libasound2t64
+    - libfreetype6
+    - libfuse2t64
+    - libgl1
+    - libglib2.0-0t64
     - libglu1-mesa
-    - libgomp1
-    - libfuse2
+    - libglvnd0
     - libice6
+    - libnuma1
+    - librsvg2-2
     - libsm6
+    - libx11-6
+    - libxau6
     - libxcb-composite0
     - libxcb-cursor0
     - libxcb-damage0
     - libxcb-glx0
     - libxcb-icccm4
+    - libxcb-image0
     - libxcb-keysyms1
     - libxcb-randr0
+    - libxcb-render-util0
+    - libxcb-render0
     - libxcb-shape0
+    - libxcb-shm0
     - libxcb-sync1
+    - libxcb-util1
+    - libxcb-xfixes0
     - libxcb-xinerama0
     - libxcb-xinput0
-    - libxcb-xfixes0
     - libxcb-xkb1
+    - libxcb1
     - libxcursor1
+    - libxext6
     - libxfixes3
     - libxi6
     - libxinerama1
@@ -67,6 +87,7 @@ dresolve_dependencies:
     - libxkbcommon0
     - libxrandr2
     - libxrender1
+    - libxt6t64
     - libxtst6
     - libxxf86vm1
     - ocl-icd-libopencl1
