@@ -1,4 +1,4 @@
-# Davinciresolve-Role
+# DavinciResolve-Role
 
 The role gets tested for these distributions:
 

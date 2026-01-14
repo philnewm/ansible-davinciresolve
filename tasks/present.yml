@@ -1,5 +1,15 @@
 ---
 
+- name: Verify davinciresolve version
+  ansible.builtin.assert:
+    that:
+      - "dresolve_installer | lower in dresolve_installer_src | lower"
+    fail_msg: |
+      Failed to find requested version '{{ dresolve_installer | lower }}' in {{ dresolve_installer_src | lower }}.
+
+      Is this the intended source?
+    quiet: true
+
 - name: Gather package facts
   ansible.builtin.package_facts:
 
