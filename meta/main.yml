@@ -10,5 +10,14 @@ galaxy_info:
     - name: EL
       versions:
         - "9"
+    - name: Fedora
+      versions:
+        - "43"
+    - name: Ubuntu
+      versions:
+        - "noble"
+    - name: Debian
+      versions:
+        - "trixie"
   galaxy_tags: []
 dependencies: []
