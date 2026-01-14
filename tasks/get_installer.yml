@@ -1,6 +1,6 @@
 ---
 
-- name: Ensure temporary install dir exists on remote host
+- name: Ensure temporary install directory exists
   become: true
   ansible.builtin.file:
     path: "{{ dresolve_package_dir }}"
@@ -8,15 +8,6 @@
     mode: "0755"
     owner: "root"
     group: "root"
-
-# - name: Copy installer
-#   become: true
-#   ansible.builtin.copy:
-#     src: "DaVinci_Resolve_Studio_20.3_Linux.run"
-#     dest: "{{ dresolve_package_dir }}"
-#     mode: "0755"
-#     owner: "root"
-#     group: "root"
 
 - name: Get installer
   become: true
