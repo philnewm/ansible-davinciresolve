@@ -26,7 +26,6 @@ dresolve_dependencies:
     - libXxf86vm
     - mesa-libGLU
     - mtdev
-    - ocl-icd
     - pulseaudio-libs
     - xcb-util-cursor
     - xcb-util-image
@@ -35,13 +34,17 @@ dresolve_dependencies:
     - xcb-util-wm
   centos:
     - *redhat_dependencies
+    - ocl-icd
   almalinux:
     - *redhat_dependencies
+    - ocl-icd
   rocky:
     - *redhat_dependencies
+    - ocl-icd
   fedora:
     - *redhat_dependencies
     - libxcrypt-compat
+    - OpenCL-ICD-Loader
   debian: &debian_dependencies
     - fontconfig
     - libapr1t64
