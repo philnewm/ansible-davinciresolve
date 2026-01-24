@@ -1,0 +1,41 @@
+---
+
+- name: Install pip module dependency
+  become: true
+  ansible.builtin.package:
+    name: python3-packaging
+    state: present
+
+- name: Ensure davinci resolve dev virtualenv exists with latest pip
+  become: true
+  ansible.builtin.pip:
+    name: pip
+    state: latest
+    virtualenv: "{{ dresolve_venv_path }}"
+    virtualenv_command: "python3 -m venv"
+  register: dresolve_pip_dowload_result
+  retries: 3
+  delay: 2
+  until: dresolve_pip_dowload_result is succeeded
+
+- name: Install davinci resolve dev packages
+  become: true
+  loop: "{{ dresolve_python_modules }}"
+  ansible.builtin.pip:
+    name: "{{ item }}"
+    virtualenv: "{{ dresolve_venv_path }}"
+
+- name: Get python version
+  become: true
+  ansible.builtin.command:
+    cmd: "python3 -c \"import sys; print(f'python{sys.version_info.major}.{sys.version_info.minor}')\""
+  changed_when: false
+  register: python_version
+
+- name: Create path link to davinci resolve install packages
+  become: true
+  ansible.builtin.copy:
+    content: |
+      {{ dresolve_install_location }}/Developer/Scripting/Modules
+    dest: "{{ dresolve_venv_path }}/lib/{{ python_version.stdout }}/site-packages/dresolve_path.pth"
+    mode: "0755"

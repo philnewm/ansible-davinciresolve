@@ -18,4 +18,9 @@ dresolve_openfx_renderer: true
 dresolve_executable_path: "{{ dresolve_install_location }}/bin/resolve"
 dresolve_symlink: "/usr/local/bin/resolve"
 
+dresolve_pipeline_dev: true
+dresolve_venv_path: "/etc/skel/python_venv/dresolve_venv"
+dresolve_python_modules:
+  - fusionscript-stubs
+
 ...

@@ -19,4 +19,10 @@
     path: "{{ dresolve_install_location }}"
     state: "absent"
 
+- name: Remove skel venv
+  become: true
+  ansible.builtin.file:
+    path: "{{ dresolve_venv_path }}"
+    state: absent
+
 ...

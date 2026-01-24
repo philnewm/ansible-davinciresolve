@@ -90,4 +90,9 @@
     path: "{{ dresolve_package_dir }}"
     state: absent
 
+- name: Setup dresolve dev env
+  when: dresolve_pipeline_dev
+  ansible.builtin.include_tasks:
+    file: development_setup.yml
+
 ...
