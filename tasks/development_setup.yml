@@ -3,7 +3,7 @@
 - name: Install pip module dependency
   become: true
   ansible.builtin.package:
-    name: python3-packaging
+    name: "{{ dresolve_venv_dependencies[ansible_facts.os_family | lower] }}"
     state: present
 
 - name: Ensure davinci resolve dev virtualenv exists with latest pip

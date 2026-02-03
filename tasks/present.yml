@@ -32,10 +32,8 @@
 
 - name: Install resolve dependencies
   become: true
-  loop: "{{ dresolve_dependencies[ansible_facts.distribution | lower] | flatten(1) }}"
-  when: item not in ansible_facts.packages
   ansible.builtin.package:
-    name: "{{ item }}"
+    name: "{{ dresolve_dependencies[ansible_facts.distribution | lower] | flatten(1) }}"
     state: present
     update_cache: true
 

@@ -1,10 +1,6 @@
 ---
 
-- name: Display dir
-  ansible.builtin.debug:
-    var: dresolve_install_location
-
-# TODO seems to pop up UI when a DISPLAY is set
+# Note UI pops up when DISPLAY variable is set
 - name: Uninstall davinci resolve
   become: true
   ansible.builtin.command:

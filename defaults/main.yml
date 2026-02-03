@@ -20,6 +20,12 @@ dresolve_symlink: "/usr/local/bin/resolve"
 
 dresolve_pipeline_dev: true
 dresolve_venv_path: "/etc/skel/python_venv/dresolve_venv"
+dresolve_venv_dependencies:
+  redhat:
+    - python3-packaging
+  debian:
+    - python3-packaging
+    - python3-venv
 dresolve_python_modules:
   - fusionscript-stubs
 
